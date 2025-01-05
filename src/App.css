@@ -15,6 +15,10 @@
   margin-bottom: 1rem;
 }
 
+.home-icon svg {
+  fill: rgb(255, 255, 255);
+}
+
 .navbar__logo {
   color: var(--slate-300);
   font-weight: 700;

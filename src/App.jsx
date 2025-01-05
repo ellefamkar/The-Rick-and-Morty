@@ -1,10 +1,11 @@
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <>
-      <h1>The Rick and Morty</h1>
-    </>
+    <div className="app">
+      <Navbar />
+    </div>
   );
 }
 
