@@ -1,3 +1,5 @@
+import { HeartIcon } from "@heroicons/react/24/outline";
+
 function Navbar() {
   return (
     <nav className="navbar">
@@ -22,7 +24,8 @@ function Navbar() {
       />
       <div className="navbar__result">Results shown</div>
       <button className="heart">
-        
+        <HeartIcon className="icon" />
+        <span className="badge">2</span>
       </button>
     </nav>
   );
