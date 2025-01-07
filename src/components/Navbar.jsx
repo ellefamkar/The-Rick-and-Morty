@@ -1,6 +1,6 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 
-function Navbar({ searchResultNum }) {
+function Navbar({ children }) {
   return (
     <nav className="navbar">
       <div className="navbar__logo">
@@ -22,7 +22,7 @@ function Navbar({ searchResultNum }) {
         className="text-field"
         placeholder="Search "
       />
-      <div className="navbar__result">Found {searchResultNum} characters</div>
+      {children}
       <button className="heart">
         <HeartIcon className="icon" />
         <span className="badge">2</span>
@@ -32,3 +32,9 @@ function Navbar({ searchResultNum }) {
 }
 
 export default Navbar;
+
+export function SearchResults({ searchResultNum }) {
+  return (
+    <div className="navbar__result">Found {searchResultNum} characters</div>
+  );
+}

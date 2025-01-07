@@ -6,20 +6,26 @@ import { episodes } from "../data/data";
 import "./App.css";
 import CharacterDetails from "./components/CharacterDetails";
 import CharacterList from "./components/CharacterList";
-import Navbar from "./components/Navbar";
+import Navbar, { SearchResults } from "./components/Navbar";
 
 function App() {
   const [characters, setCharacters] = useState(allCharacters);
 
   return (
     <div className="app">
-      <Navbar searchResultNum={characters.length} />
-      <div className="main">
+      <Navbar>
+        <SearchResults searchResultNum={characters.length} />
+      </Navbar>
+      <Main>
         <CharacterList characters={characters} />
         <CharacterDetails character={character} episodes={episodes} />
-      </div>
+      </Main>
     </div>
   );
 }
 
 export default App;
+
+function Main({ children }) {
+  return <div className="main">{children} </div>;
+}
