@@ -7,35 +7,57 @@ import "./App.css";
 import CharacterDetails from "./components/CharacterDetails";
 import CharacterList from "./components/CharacterList";
 import Navbar, { SearchResults } from "./components/Navbar";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // using fetch
+  // using fetch - catch-then
   // useEffect(() => {
-  // setIsLoading(true);
+  //   setIsLoading(true);
   //   fetch("https://rickandmortyapi.com/api/character")
-  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       if (!response.ok) throw new Error("Something went wrong.");
+  //       return response.json();
+  //     })
   //     .then((data) => {
-  //    setCharacters(data.results.slice(0,6))
-  // setIsLoading(false);
-  // });
+  //       setCharacters(data.results.slice(0, 6));
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err.message);
+  //     })
+  //     .finally(() => setIsLoading(false));
   // }, []);
+
+  // using fetch- async-await
 
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true);
-      const response = await fetch("https://rickandmortyapi.com/api/character");
-      const data = await response.json();
-      setCharacters(data.results.slice(0, 6));
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          "https://rickandmortyapi.com/api/character"
+        );
+
+        if (!response.ok) throw new Error("Something went wrong.");
+
+        const data = await response.json();
+        setCharacters(data.results.slice(0, 6));
+      } catch (err) {
+        toast.error(err.message);
+        // for rl data project
+        // err.response.data.message
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchData();
   }, []);
 
   return (
     <div className="app">
+      <Toaster />
       <Navbar>
         <SearchResults searchResultNum={characters.length} />
       </Navbar>
