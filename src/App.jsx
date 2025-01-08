@@ -40,7 +40,7 @@ function App() {
         <SearchResults searchResultNum={characters.length} />
       </Navbar>
       <Main>
-        <CharacterList characters={characters} isLoading={isLoading}/>
+        <CharacterList characters={characters} isLoading={isLoading} />
         <CharacterDetails character={character} episodes={episodes} />
       </Main>
     </div>
