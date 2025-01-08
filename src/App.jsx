@@ -10,19 +10,26 @@ import Navbar, { SearchResults } from "./components/Navbar";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // using fetch
   // useEffect(() => {
+  // setIsLoading(true);
   //   fetch("https://rickandmortyapi.com/api/character")
   //     .then((response) => response.json())
-  //     .then((data) => setCharacters(data.results.slice(0,6)));
+  //     .then((data) => {
+  //    setCharacters(data.results.slice(0,6))
+  // setIsLoading(false);
+  // });
   // }, []);
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       const response = await fetch("https://rickandmortyapi.com/api/character");
       const data = await response.json();
       setCharacters(data.results.slice(0, 6));
+      setIsLoading(false);
     }
     fetchData();
   }, []);
@@ -33,7 +40,7 @@ function App() {
         <SearchResults searchResultNum={characters.length} />
       </Navbar>
       <Main>
-        <CharacterList characters={characters} />
+        <CharacterList characters={characters} isLoading={isLoading}/>
         <CharacterDetails character={character} episodes={episodes} />
       </Main>
     </div>
