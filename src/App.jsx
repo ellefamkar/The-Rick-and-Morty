@@ -8,6 +8,7 @@ import CharacterDetails from "./components/CharacterDetails";
 import CharacterList from "./components/CharacterList";
 import Navbar, { SearchResults } from "./components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -31,23 +32,55 @@ function App() {
   // }, []);
 
   // using fetch- async-await
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await fetch(
+  //         "https://rickandmortyapi.com/api/character"
+  //       );
+
+  //       if (!response.ok) throw new Error("Something went wrong.");
+
+  //       const data = await response.json();
+  //       setCharacters(data.results.slice(0, 6));
+  //     } catch (err) {
+  //       toast.error(err.message);
+  //       // for rl data project
+  //       // err.response.data.message
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // axios
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios
+  //     .get("https://rickandmortyapi.com/api/character")
+  //     .then(({ data }) => {
+  //       setCharacters(data.results.slice(0, 6));
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err.response.message.error);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }, []);
 
   useEffect(() => {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await fetch(
+        const { data } = await axios.get(
           "https://rickandmortyapi.com/api/character"
         );
-
-        if (!response.ok) throw new Error("Something went wrong.");
-
-        const data = await response.json();
         setCharacters(data.results.slice(0, 6));
       } catch (err) {
-        toast.error(err.message);
-        // for rl data project
-        // err.response.data.message
+        // console.log(err.response.data.error);
+        toast.error(err.response.data.error);
       } finally {
         setIsLoading(false);
       }
