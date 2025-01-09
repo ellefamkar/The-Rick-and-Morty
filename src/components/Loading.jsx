@@ -1,9 +1,9 @@
 function Loading() {
   return (
     <>
-      <p>Loading</p>
+      <p className="loading">Loading...</p>
     </>
-  )
+  );
 }
 
-export default Loading
+export default Loading;

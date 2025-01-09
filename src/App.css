@@ -218,6 +218,10 @@
   /* cursor: pointer; */
 }
 
+.loading{
+  color: #ccc4c4;
+}
+
 @media (min-width: 768px) {
   .character-detail {
     flex-direction: row;
