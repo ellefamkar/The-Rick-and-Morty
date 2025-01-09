@@ -6,13 +6,14 @@ import { episodes } from "../data/data";
 import "./App.css";
 import CharacterDetails from "./components/CharacterDetails";
 import CharacterList from "./components/CharacterList";
-import Navbar, { SearchResults } from "./components/Navbar";
+import Navbar, { Search, SearchResults } from "./components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState("");
 
   // using fetch - catch-then
   // useEffect(() => {
@@ -75,23 +76,31 @@ function App() {
       try {
         setIsLoading(true);
         const { data } = await axios.get(
-          "https://rickandmortyapi.com/api/character"
+          `https://rickandmortyapi.com/api/character/?name=${query}`
         );
         setCharacters(data.results.slice(0, 6));
       } catch (err) {
         // console.log(err.response.data.error);
+        setCharacters([]);
         toast.error(err.response.data.error);
       } finally {
         setIsLoading(false);
       }
     }
+
+    // if (query.length < 3) {
+    //   setCharacters([]);
+    //   return;
+    // }
+
     fetchData();
-  }, []);
+  }, [query]);
 
   return (
     <div className="app">
       <Toaster />
       <Navbar>
+        <Search query={query} setQuery={setQuery} />
         <SearchResults searchResultNum={characters.length} />
       </Navbar>
       <Main>

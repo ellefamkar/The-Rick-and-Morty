@@ -15,13 +15,6 @@ function Navbar({ children }) {
           </svg>
         </a>
       </div>
-      <input
-        type="text"
-        name="text"
-        id="text"
-        className="text-field"
-        placeholder="Search "
-      />
       {children}
       <button className="heart">
         <HeartIcon className="icon" />
@@ -32,6 +25,20 @@ function Navbar({ children }) {
 }
 
 export default Navbar;
+
+export function Search({ query, setQuery }) {
+  return (
+    <input
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      type="text"
+      name="text"
+      id="text"
+      className="text-field"
+      placeholder="Search "
+    />
+  );
+}
 
 export function SearchResults({ searchResultNum }) {
   return (
