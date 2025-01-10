@@ -14,7 +14,7 @@ function CharacterDetails({ episodes, selectedId }) {
         setIsLoading(true);
         setCharacter(null);
         const { data } = await axios.get(
-          `https://rickandmortyapi.com/api/charddacter/${selectedId}`
+          `https://rickandmortyapi.com/api/character/${selectedId}`
         );
         setCharacter(data);
         setIsLoading(false);
