@@ -14,6 +14,7 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
 
   // using fetch - catch-then
   // useEffect(() => {
@@ -96,6 +97,10 @@ function App() {
     fetchData();
   }, [query]);
 
+  const handleSelectCharacter = (id) => {
+    setSelectedId(id);
+  };
+
   return (
     <div className="app">
       <Toaster />
@@ -104,8 +109,15 @@ function App() {
         <SearchResults searchResultNum={characters.length} />
       </Navbar>
       <Main>
-        <CharacterList characters={characters} isLoading={isLoading} />
-        <CharacterDetails character={character} episodes={episodes} />
+        <CharacterList
+          characters={characters}
+          isLoading={isLoading}
+          onSelectCharacter={handleSelectCharacter}
+        />
+        <CharacterDetails 
+        character={character} 
+        episodes={episodes}
+        selectedId={selectedId} />
       </Main>
     </div>
   );
