@@ -112,6 +112,7 @@ function App() {
         <CharacterList
           characters={characters}
           isLoading={isLoading}
+          selectedId={selectedId}
           onSelectCharacter={handleSelectCharacter}
         />
         <CharacterDetails 
