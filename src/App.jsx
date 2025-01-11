@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 // import { allCharacters } from "../data/data";
-import { character } from "../data/data";
-import { episodes } from "../data/data";
 
 import "./App.css";
 import CharacterDetails from "./components/CharacterDetails";
 import CharacterList from "./components/CharacterList";
-import Navbar, { Search, SearchResults } from "./components/Navbar";
+import Navbar, { Favourites, Search, SearchResults } from "./components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
@@ -15,6 +13,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [favourites, setFavourites] = useState([]);
 
   // using fetch - catch-then
   // useEffect(() => {
@@ -101,12 +100,21 @@ function App() {
     setSelectedId(id);
   };
 
+  const handleAddFavourites = (character) => {
+    setFavourites((prevFav) => [...prevFav, character]);
+  };
+
+  const isAddToFavourites = favourites
+    .map((fav) => fav.id)
+    .includes(selectedId);
+
   return (
     <div className="app">
       <Toaster />
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResults searchResultNum={characters.length} />
+        <Favourites numOfFavourites={favourites.length} />
       </Navbar>
       <Main>
         <CharacterList
@@ -115,10 +123,11 @@ function App() {
           selectedId={selectedId}
           onSelectCharacter={handleSelectCharacter}
         />
-        <CharacterDetails 
-        character={character} 
-        episodes={episodes}
-        selectedId={selectedId} />
+        <CharacterDetails
+          selectedId={selectedId}
+          onAddFavourite={handleAddFavourites}
+          isAddToFavourites={isAddToFavourites}
+        />
       </Main>
     </div>
   );

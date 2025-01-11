@@ -16,10 +16,6 @@ function Navbar({ children }) {
         </a>
       </div>
       {children}
-      <button className="heart">
-        <HeartIcon className="icon" />
-        <span className="badge">2</span>
-      </button>
     </nav>
   );
 }
@@ -43,5 +39,14 @@ export function Search({ query, setQuery }) {
 export function SearchResults({ searchResultNum }) {
   return (
     <div className="navbar__result">Found {searchResultNum} characters</div>
+  );
+}
+
+export function Favourites({ numOfFavourites }) {
+  return (
+    <button className="heart">
+      <HeartIcon className="icon" />
+      <span className="badge">{numOfFavourites}</span>
+    </button>
   );
 }
