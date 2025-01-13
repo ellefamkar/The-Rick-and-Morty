@@ -13,7 +13,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [favourites, setFavourites] = useState([]);
+  const [favourites, setFavourites] = useState(
+    () => JSON.parse(localStorage.getItem("FAVOURITES")) || []
+  );
 
   // using fetch - catch-then
   // useEffect(() => {
@@ -118,13 +120,24 @@ function App() {
     .map((fav) => fav.id)
     .includes(selectedId);
 
+  const handleDeleteFavourites = (id) => {
+    setFavourites((prevFav) => prevFav.filter((fav) => fav.id !== id));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("FAVOURITES", JSON.stringify(favourites));
+  }, [favourites]);
+
   return (
     <div className="app">
       <Toaster />
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResults searchResultNum={characters.length} />
-        <Favourites numOfFavourites={favourites.length} />
+        <Favourites
+          favourites={favourites}
+          onDeleteFavourite={handleDeleteFavourites}
+        />
       </Navbar>
       <Main>
         <CharacterList
