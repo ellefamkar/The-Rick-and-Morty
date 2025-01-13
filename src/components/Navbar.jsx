@@ -50,7 +50,7 @@ export function Favourites({ favourites, onDeleteFavourite }) {
 
   return (
     <>
-      <Modal title={"test"} onOpen={setIsOpen} open={isOpen}>
+      <Modal title={"Favourite Characters"} onOpen={setIsOpen} open={isOpen}>
         {favourites.map((item) => (
           <Character
             key={item.id}
