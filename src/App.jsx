@@ -7,6 +7,7 @@ import CharacterList from "./components/CharacterList";
 import Navbar, { Favourites, Search, SearchResults } from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import useCharacters from "./hooks/useCharacters";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -15,9 +16,7 @@ function App() {
     query
   );
   const [selectedId, setSelectedId] = useState(null);
-  const [favourites, setFavourites] = useState(
-    () => JSON.parse(localStorage.getItem("FAVOURITES")) || []
-  );
+  const [favourites, setFavourites] = useLocalStorage("FAVOURTIES", []);
 
   // using fetch - catch-then
   // useEffect(() => {
@@ -90,10 +89,6 @@ function App() {
   const handleDeleteFavourites = (id) => {
     setFavourites((prevFav) => prevFav.filter((fav) => fav.id !== id));
   };
-
-  useEffect(() => {
-    localStorage.setItem("FAVOURITES", JSON.stringify(favourites));
-  }, [favourites]);
 
   return (
     <div className="app">
